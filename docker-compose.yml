@@ -3,9 +3,10 @@ services:
     image: sanchaljustgrow/docker-testnew-frontend:latest
     container_name: angular-frontend
     ports:
-      - "8081:80"  # match Dockerfile
+      - "8081:80"
     environment:
-      - API_URL=https://dummyjson.com/products/2
+      - NG_APP_URL=https://dummyjson.com/products/2
     command: >
-      sh -c "echo '{\"API_URL\": \"'$API_URL'\"}' > /usr/share/nginx/html/assets/config.json &&
+      sh -c "sed 's|__NG_APP_URL__|'\"${NG_APP_URL}\"'|g' /usr/share/nginx/html/assets/config.template.json
+      > /usr/share/nginx/html/assets/config.json &&
       nginx -g 'daemon off;'"
