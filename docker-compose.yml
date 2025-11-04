@@ -6,12 +6,10 @@ services:
     container_name: angular-frontend
     ports:
       - "8080:80"
-
-    # ✅ Mount local config.json into container dynamically
+    environment:
+      NG_APP_URL: "https://dummyjson.com/products/2"
     volumes:
       - ./config/config.json:/usr/share/nginx/html/assets/config.json:ro
-
-    # ✅ Keep Nginx running and print status
     command: >
       sh -c "
         echo '🚀 Starting container...';
@@ -20,7 +18,7 @@ services:
           cat /usr/share/nginx/html/assets/config.json;
         else
           echo '⚠️ No config.json found, creating default one...';
-          echo '{\"NG_APP_URL\":\"https://dummyjson.com/products/2"}' > /usr/share/nginx/html/assets/config.json;
+          echo '{\"NG_APP_URL\":\"https://dummyjson.com/products/2\"}' > /usr/share/nginx/html/assets/config.json;
         fi;
-        nginx -g 'daemon off;'
+        nginx -g 'daemon off;';
       "
