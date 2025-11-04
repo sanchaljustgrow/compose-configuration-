@@ -1,10 +1,15 @@
 version: "3.8"
 
+version: "3.8"
+
 services:
   angular-frontend:
-    image: sanchaljustgrow/docker-testnew-frontend:latest   # 👈 Pulls from Docker Hub
+    image: sanchaljustgrow/docker-testnew-frontend:latest
     container_name: angular-frontend
     ports:
       - "8080:80"
+    volumes:
+      # Mount your local config.json into the container (overwrites the default)
+      - ./config/config.json:/usr/share/nginx/html/assets/config.json:ro
     environment:
       - API_URL=https://dummyjson.com/products/2
