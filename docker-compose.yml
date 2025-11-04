@@ -11,16 +11,16 @@ services:
     volumes:
       - ./config/config.json:/usr/share/nginx/html/assets/config.json:ro
 
-    # ✅ Keep Nginx running in foreground
-    command: >
-      sh -c "
-        echo 'Starting container...';
-        if [ -f /usr/share/nginx/html/assets/config.json ]; then
-          echo '✅ Found config.json';
-          cat /usr/share/nginx/html/assets/config.json;
-        else
-          echo '⚠️ No config.json found, creating default one...';
-          echo '{\"NG_APP_URL\":\"https://default.example.com\"}' > /usr/share/nginx/html/assets/config.json;
-        fi;
-        nginx -g 'daemon off;'
-      "
+    # # ✅ Keep Nginx running in foreground
+    # command: >
+    #   sh -c "
+    #     echo 'Starting container...';
+    #     if [ -f /usr/share/nginx/html/assets/config.json ]; then
+    #       echo '✅ Found config.json';
+    #       cat /usr/share/nginx/html/assets/config.json;
+    #     else
+    #       echo '⚠️ No config.json found, creating default one...';
+    #       echo '{\"NG_APP_URL\":\"https://default.example.com\"}' > /usr/share/nginx/html/assets/config.json;
+    #     fi;
+    #     nginx -g 'daemon off;'
+    #   "
