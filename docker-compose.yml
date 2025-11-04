@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   angular-frontend:
-    image: sanchaljustgrow/testenv-frontend:latest
+    image: sanchaljustgrow/docker-testnew-frontend:latest
     container_name: angular-frontend
     ports:
       - "8080:80"
