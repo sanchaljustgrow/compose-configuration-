@@ -1,13 +1,12 @@
-version: "3.8"
-
 services:
   angular-frontend:
     image: sanchaljustgrow/docker-testnew-frontend:latest
     container_name: angular-frontend
     ports:
       - "8081:80"
-    env_file:
-      - .env  # Default env (can be overridden)
+    environment:
+      NG_APP_URL: "https://task.thingsrms.com/v1"
+      NG_APP_ENV: "production"
     command: >
       sh -c "
       cp /usr/share/nginx/html/assets/config.template.json /usr/share/nginx/html/assets/config.json &&
