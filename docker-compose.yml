@@ -18,7 +18,7 @@ services:
           cat /usr/share/nginx/html/assets/config.json;
         else
           echo '⚠️ No config.json found, creating default one...';
-          echo '{\"NG_APP_URL\":\"https://dummyjson.com/products/2\"}' > /usr/share/nginx/html/assets/config.json;
+          echo '{\"NG_APP_URL\":\"https://dummyjson.com/products/1\"}' > /usr/share/nginx/html/assets/config.json;
         fi;
         nginx -g 'daemon off;';
       "
