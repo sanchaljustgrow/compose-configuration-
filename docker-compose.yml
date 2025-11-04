@@ -11,12 +11,12 @@ services:
     volumes:
       - ./config/config.json:/usr/share/nginx/html/assets/config.json:ro
 
-    # ✅ Keep Nginx running in foreground
+    # ✅ Keep Nginx running and print status
     command: >
       sh -c "
-        echo 'Starting container...';
+        echo '🚀 Starting container...';
         if [ -f /usr/share/nginx/html/assets/config.json ]; then
-          echo '✅ Found config.json';
+          echo '✅ Found config.json:';
           cat /usr/share/nginx/html/assets/config.json;
         else
           echo '⚠️ No config.json found, creating default one...';
