@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  angular-frontend:
+    image: sanchaljustgrow/testenv-angular:latest
+    container_name: angular-frontend
+    ports:
+      - "8080:80"
+    environment:
+      NG_APP_URL: "https://dummyjson.com/products/2"   # <-- runtime API URL
+    restart: always
