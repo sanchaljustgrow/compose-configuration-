@@ -6,7 +6,10 @@ services:
       - "8081:80"
     environment:
       - NG_APP_URL=https://dummyjson.com/products/2
+      - NG_APP_ENV=production
     command: >
-      sh -c "sed 's|__NG_APP_URL__|'\"${NG_APP_URL}\"'|g' /usr/share/nginx/html/assets/config.template.json
-      > /usr/share/nginx/html/assets/config.json &&
+      sh -c "sed -e 's|__NG_APP_URL__|'\"${NG_APP_URL}\"'|g' 
+      -e 's|__NG_APP_ENV__|'\"${NG_APP_ENV}\"'|g' 
+      /usr/share/nginx/html/assets/config.template.json 
+      > /usr/share/nginx/html/assets/config.json && 
       nginx -g 'daemon off;'"
