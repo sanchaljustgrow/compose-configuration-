@@ -1,16 +1,17 @@
+version: "3.8"
+
 services:
   angular-frontend:
     image: sanchaljustgrow/docker-testnew-frontend:latest
     container_name: angular-frontend
     ports:
       - "8081:80"
-    environment:
-      NG_APP_URL: "https://task.thingsrms.com/v1"
-      NG_APP_ENV: "production"
+    env_file:
+      - .env  # Default env (can be overridden)
     command: >
       sh -c "
       cp /usr/share/nginx/html/assets/config.template.json /usr/share/nginx/html/assets/config.json &&
-      sed -i 's#__NG_APP_URL__#${NG_APP_URL}#g' /usr/share/nginx/html/assets/config.json &&
-      sed -i 's#__NG_APP_ENV__#${NG_APP_ENV}#g' /usr/share/nginx/html/assets/config.json &&
+      sed -i \"s#__NG_APP_URL__#${NG_APP_URL}#g\" /usr/share/nginx/html/assets/config.json &&
+      sed -i \"s#__NG_APP_ENV__#${NG_APP_ENV}#g\" /usr/share/nginx/html/assets/config.json &&
       nginx -g 'daemon off;'
       "
