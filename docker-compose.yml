@@ -6,19 +6,31 @@ services:
     container_name: angular-frontend
     ports:
       - "8080:80"
+
+    # Pick which config file to use by changing APP_ENV below 👇
     environment:
-      NG_APP_URL: "https://dummyjson.com/products/2"
+      APP_ENV: "dev" # choose dev | prod | staging | local
+
     volumes:
-      - ./config/config.json:/usr/share/nginx/html/assets/config.json:ro
+      - ./config:/app-config:ro
+
     command: >
       sh -c "
-        echo '🚀 Starting container...';
-        if [ -f /usr/share/nginx/html/assets/config.json ]; then
-          echo '✅ Found config.json:';
-          cat /usr/share/nginx/html/assets/config.json;
+        echo '🚀 Starting container with APP_ENV=${APP_ENV}';
+        CONFIG_FILE=/app-config/config.${APP_ENV}.json;
+        TARGET=/usr/share/nginx/html/assets/config.json;
+
+        if [ -f $CONFIG_FILE ]; then
+          echo '✅ Found config file:' $CONFIG_FILE;
+          cp $CONFIG_FILE $TARGET;
         else
-          echo '⚠️ No config.json found, creating default one...';
-          echo '{\"NG_APP_URL\":\"https://dummyjson.com/products/1\"}' > /usr/share/nginx/html/assets/config.json;
+          echo '⚠️ No config file found for ${APP_ENV}, using default (config.dev.json)';
+          cp /app-config/config.dev.json $TARGET;
         fi;
+
+        echo '📄 Final config.json content:';
+        cat $TARGET;
+
+        echo '🚀 Launching Nginx...';
         nginx -g 'daemon off;';
       "
