@@ -1,17 +1,11 @@
-version: '3.8' # <--- Added the required Docker Compose version
+version: "3.8"
+
 services:
   angular-frontend:
-    image: sanchaljustgrow/docker-testnew-frontend:latest
+    image: sanchaljustgrow/testenv-frontend:latest
     container_name: angular-frontend
     ports:
-      - "8081:80"
-    environment:
-      NG_APP_URL: "https://dummyjson.com/products/2" 
-      NG_APP_ENV: "production" 
-    command: >
-      sh -c "cp /usr/share/nginx/html/assets/config.template.json /usr/share/nginx/html/assets/config.json &&
-            sed -i 's#__NG_APP_URL__#${NG_APP_URL}#g' /usr/share/nginx/html/assets/config.json &&
-            sed -i 's#__NG_APP_ENV__#${NG_APP_ENV}#g' /usr/share/nginx/html/assets/config.json &&
-            echo '✅ Environment variables replaced:' &&
-            cat /usr/share/nginx/html/assets/config.json &&
-            nginx -g 'daemon off;'"
+      - "8080:80"
+    volumes:
+      # Mount your host config.json into the container
+      - ./config/config.json:/usr/share/nginx/html/assets/config.json:ro
