@@ -7,10 +7,10 @@ services:
     environment:
       NG_APP_URL: "https://task.thingsrms.com/v1"
       NG_APP_ENV: "production"
-    entrypoint: >
+    command: >
       sh -c "
-        cp /usr/share/nginx/html/assets/config.template.json /usr/share/nginx/html/assets/config.json &&
-        sed -i 's#__NG_APP_URL__#${NG_APP_URL}#g' /usr/share/nginx/html/assets/config.json &&
-        sed -i 's#__NG_APP_ENV__#${NG_APP_ENV}#g' /usr/share/nginx/html/assets/config.json &&
-        nginx -g 'daemon off;'
+      cp /usr/share/nginx/html/assets/config.template.json /usr/share/nginx/html/assets/config.json &&
+      sed -i 's#__NG_APP_URL__#${NG_APP_URL}#g' /usr/share/nginx/html/assets/config.json &&
+      sed -i 's#__NG_APP_ENV__#${NG_APP_ENV}#g' /usr/share/nginx/html/assets/config.json &&
+      nginx -g 'daemon off;'
       "
