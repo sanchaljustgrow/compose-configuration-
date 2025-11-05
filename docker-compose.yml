@@ -5,20 +5,17 @@ services:
     ports:
       - "8080:80"
     environment:
-      NG_APP_URL: "https://dummyjson.com/products/2"
-      APP_ENV: "production"
-      CONFIG_FILE: "/usr/share/nginx/html/assets/config.json"
-      TARGET: "docker"
+      CONFIG_FILE: "${CONFIG_FILE:-config.local.json}"  # default = local
     volumes:
-      - ./config/config.json:/usr/share/nginx/html/assets/config.json:ro
+      - ./config/${CONFIG_FILE}:/usr/share/nginx/html/assets/config.json:ro
     command: >
       sh -c "
-        echo '🚀 Starting container...';
+        echo '🚀 Starting container using config file: ${CONFIG_FILE}';
         if [ -f /usr/share/nginx/html/assets/config.json ]; then
-          echo '✅ Found config.json:'; cat /usr/share/nginx/html/assets/config.json;
+          echo '✅ Config file content:';
+          cat /usr/share/nginx/html/assets/config.json;
         else
-          echo '⚠️ No config.json found, creating default one...';
-          echo '{\"NG_APP_URL\":\"https://dummyjson.com/products/1\"}' > /usr/share/nginx/html/assets/config.json;
+          echo '⚠️ Config file not found!';
         fi;
         nginx -g 'daemon off;';
       "
