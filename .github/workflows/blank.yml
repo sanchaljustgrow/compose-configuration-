@@ -1,16 +1,23 @@
-name: Conditional Merge Blocker
+name: Restrict Merge Access
 
 on:
   pull_request:
     branches:
       - main
+     
+    types: [opened, reopened, synchronize, ready_for_review]
 
 jobs:
-  check-user:
+  restrict-merge:
     runs-on: ubuntu-latest
     steps:
-      - name: Check PR author
-        if: github.actor != 'sanchaljustgrow'  # Replace with your username
+      - name: 🔍 Check if user is allowed to merge
         run: |
-          echo "Only 'admin-user' can merge to main."
-          exit 1
+          ALLOWED_USERS=("admin1" "admin2")  # ✅ Replace with your GitHub usernames
+          echo "Pull request opened by: ${{ github.actor }}"
+          if [[ ! " ${ALLOWED_USERS[@]} " =~ " ${GITHUB_ACTOR} " ]]; then
+            echo "❌ User '${GITHUB_ACTOR}' is not allowed to merge into this branch."
+            exit 1
+          else
+            echo "✅ User '${GITHUB_ACTOR}' is allowed to merge."
+          fi
