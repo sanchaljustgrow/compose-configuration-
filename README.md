@@ -1,2 +1,2 @@
 # compose-configuration-  
-compose-configuration  for docker image
+compose-configuration  for docker image m
