@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check PR author
-        if: github.actor != 'admin-user'  # Replace with your username
+        if: github.actor != 'sanchaljustgrow'  # Replace with your username
         run: |
           echo "Only 'admin-user' can merge to main."
           exit 1
