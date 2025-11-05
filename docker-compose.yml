@@ -4,18 +4,17 @@ services:
     container_name: angular-frontend
     ports:
       - "8080:80"
-    environment:
-      CONFIG_FILE: "${CONFIG_FILE:-config.local.json}"  # default = local
     volumes:
-      - ./config/${CONFIG_FILE}:/usr/share/nginx/html/assets/config.json:ro
+      # 👇 Mount a single, fixed config file
+      - ./config/config.local.json:/usr/share/nginx/html/assets/config.json:ro
     command: >
       sh -c "
-        echo '🚀 Starting container using config file: ${CONFIG_FILE}';
+        echo '🚀 Starting container with config.local.json';
         if [ -f /usr/share/nginx/html/assets/config.json ]; then
-          echo '✅ Config file content:';
+          echo '✅ Config file found:';
           cat /usr/share/nginx/html/assets/config.json;
         else
-          echo '⚠️ Config file not found!';
+          echo '⚠️ config.local.json missing!';
         fi;
         nginx -g 'daemon off;';
       "
