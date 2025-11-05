@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: 🔍 Check if user is allowed to merge
         run: |
-          ALLOWED_USERS=("admin1" "admin2")  # ✅ Replace with your GitHub usernames
+          ALLOWED_USERS=("sanchaljustgrow" "admin2")  # ✅ Replace with your GitHub usernames
           echo "Pull request opened by: ${{ github.actor }}"
           if [[ ! " ${ALLOWED_USERS[@]} " =~ " ${GITHUB_ACTOR} " ]]; then
             echo "❌ User '${GITHUB_ACTOR}' is not allowed to merge into this branch."
