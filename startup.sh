@@ -3,10 +3,13 @@
 echo "Hello, world!"
 echo "My first script is running."
 
-echo "Stopping existing containers..."
-docker compose down
 
-ENV=$1
+
+if [ -z "$1" ]; then
+    read -p "Enter environment name (e.g., dev, prod, qa): " ENV
+else
+    ENV=$1
+fi
 
 
 echo "Really want to pass ENV = $ENV"
