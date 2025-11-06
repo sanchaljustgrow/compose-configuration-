@@ -6,7 +6,7 @@ echo "My first script is running."
 
 
 if [ -z "$1" ]; then
-    read -p "Enter environment name (e.g., dev, prod, qa): " ENV
+    read -p "Enter environment name (local,dev,prod,staging) : " ENV
 else
     ENV=$1
 fi
