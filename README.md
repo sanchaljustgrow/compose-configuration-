@@ -1,4 +1,2 @@
 # compose-configuration-
-compose-configuration  for docker image
-  
-Test purpose 
+compose-configuration  for docker 
