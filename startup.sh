@@ -20,8 +20,7 @@ fi
 
 if [ "$CONFIRM" == "YES" ]; then
     echo "Starting containers with config.${ENV}.json..."
-    docker compose up -d --build \
-        --env-file <(echo "ENV=$ENV")
+    docker compose up -d 
 else
     echo "Skipping container startup. Confirmation not YES."
 fi
