@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# ----------------------------------------
-# Starting Deployment Script
-# ----------------------------------------
-
-# --- Environment Selection ---
 if [ -z "$1" ]; then
     read -p "Enter environment name (local/dev/prod/staging): " ENV
 else
