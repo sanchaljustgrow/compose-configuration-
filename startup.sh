@@ -11,23 +11,18 @@ else
     ENV=$1
 fi
 
-
-
-
-
 # Check if config file exists
 if [ ! -f "./config/config.${ENV}.json" ]; then
     echo "Error: Configuration file not found!"
     exit 1
 fi
 
-read -p "Do you want to continue ENV = $ENV enter(yes.y /no) : " CONFIRM
+read -p "Do you want to continue with ENV = $ENV? (yes/y or no): " CONFIRM
 
 if [ "$CONFIRM" == "yes" ] || [ "$CONFIRM" == "y" ]; then
     echo "Stopping existing containers..."
     docker compose down
-
-    echo "Starting containers with configuration: $CONFIG_FILE"
+    echo "Starting containers with configuration: $ENV"
     export ENV=$ENV
     docker compose up -d 
     echo "Containers started successfully for environment: $ENV"
