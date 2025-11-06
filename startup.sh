@@ -1,8 +1,6 @@
 #!/bin/bash
 
-# ----------------------------------------
-# Starting Deployment Script
-# ----------------------------------------
+
 
 # --- Environment Selection ---
 if [ -z "$1" ]; then
@@ -33,9 +31,13 @@ if [[ "$CONFIRM" == "yes" || "$CONFIRM" == "y" ]]; then
     docker compose down
 
     echo "Starting containers with configuration: $ENV"
-    export ENV=$ENV
 
+    
+  
+
+    
     docker compose up -d
+
     if [ $? -eq 0 ]; then
         echo "Containers started successfully for environment: $ENV"
     else
