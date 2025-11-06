@@ -10,9 +10,15 @@ echo "The first argument passed was: $1"
 
 ENV=$1
 echo "Really want to pass ENV =$1 "
-if ENV == YES 
+CONFIRM=$2
+if [ "$CONFIRM" == "YES" ]; then
+    echo "Starting containers with new configuration..."
+    docker compose --env-file "$ENV" up -d
+else
 
-echo "Starting containers with new configuration..."
-docker-compose up -d 
+ echo "Skipping container startup. Confirmation not YES."
+ fi
+ 
+
 
 
