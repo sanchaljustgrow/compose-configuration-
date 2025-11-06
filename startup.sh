@@ -21,7 +21,7 @@ if [ ! -f "./config/config.${ENV}.json" ]; then
     exit 1
 fi
 
-read -p "Do you want to continue  ENV = $ENV : " CONFIRM
+read -p "Do you want to continue ENV = $ENV enter(yes.y /no) : " CONFIRM
 
 if [ "$CONFIRM" == "yes" ] || [ "$CONFIRM" == "y" ]; then
     echo "Stopping existing containers..."
