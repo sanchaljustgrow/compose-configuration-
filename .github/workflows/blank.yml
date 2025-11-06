@@ -1,0 +1,33 @@
+name: Restrict Merge to Admins
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, reopened, synchronize, ready_for_review]
+
+jobs:
+  restrict-merge:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    steps:
+      - name: 🔍 Check if user is admin
+        env:
+          ACTOR: ${{ github.actor }}
+          REPO: ${{ github.repository }}
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Checking if $ACTOR is an admin in $REPO"
+          IS_ADMIN=$(curl -s -H "Authorization: token $TOKEN" \
+            "https://api.github.com/repos/$REPO/collaborators/$ACTOR/permission" \
+            | jq -r '.permission')
+
+          echo "Permission level: $IS_ADMIN"
+
+          if [ "$IS_ADMIN" != "admin" ]; then
+            echo "❌ User '$ACTOR' is not an admin — merge not allowed."
+            exit 1
+          else
+            echo "✅ User '$ACTOR' is an admin — merge allowed."
+          fi
