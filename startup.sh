@@ -33,7 +33,7 @@ if [[ "$CONFIRM" == "yes" || "$CONFIRM" == "y" ]]; then
     docker compose down
 
     echo "Starting containers with configuration: $ENV"
-    export ENV=$ENV
+       # export ENV=$ENV
 
     docker compose up -d
     if [ $? -eq 0 ]; then
