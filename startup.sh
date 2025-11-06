@@ -10,7 +10,7 @@ if [ -z "$1" ]; then
 else
     ENV=$1
 fi
- ENV = $ENV"
+
 
 
 
