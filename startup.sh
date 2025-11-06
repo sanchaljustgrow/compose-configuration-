@@ -10,9 +10,9 @@ if [ -z "$1" ]; then
 else
     ENV=$1
 fi
+ ENV = $ENV"
 
 
-echo "Really want to pass ENV = $ENV"
 
 
 # Check if config file exists
@@ -21,7 +21,7 @@ if [ ! -f "./config/config.${ENV}.json" ]; then
     exit 1
 fi
 
-read -p "Do you want to continue and start containers? (yes/no): " CONFIRM
+read -p "Do you want to continue  ENV = $ENV : " CONFIRM
 
 if [ "$CONFIRM" == "yes" ] || [ "$CONFIRM" == "y" ]; then
     echo "Stopping existing containers..."
