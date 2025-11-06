@@ -7,20 +7,28 @@ echo "Stopping existing containers..."
 docker compose down
 
 ENV=$1
-CONFIRM=$2
+
 
 echo "Really want to pass ENV = $ENV"
-echo "Confirmation = $CONFIRM"
+
 
 # Check if config file exists
 if [ ! -f "./config/config.${ENV}.json" ]; then
-    echo "❌ Error: Configuration file './config/config.${ENV}.json' not found!"
+    echo "Error: Configuration file not found!"
     exit 1
 fi
 
-if [ "$CONFIRM" == "YES" ]; then
-    echo "Starting containers with config.${ENV}.json..."
+read -p "Do you want to continue and start containers? (yes/no): " CONFIRM
+
+if [ "$CONFIRM" == "yes" ] || [ "$CONFIRM" == "y" ]; then
+    echo "Stopping existing containers..."
+    docker compose down
+
+    echo "Starting containers with configuration: $CONFIG_FILE"
+    export ENV=$ENV
     docker compose up -d 
+    echo "Containers started successfully for environment: $ENV"
 else
-    echo "Skipping container startup. Confirmation not YES."
+    echo " Operation cancelled."
+    exit 0
 fi
