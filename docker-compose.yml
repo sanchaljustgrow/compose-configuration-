@@ -6,7 +6,7 @@ services:
       - "8080:80"
     volumes:
       # 👇 Mount a single, fixed config file
-      - ./config/config.dev.json:/usr/share/nginx/html/assets/config.json:ro
+      - ./config/config.${ENV}.json:/usr/share/nginx/html/assets/config.json:ro
     command: >
       sh -c "
         echo '🚀 Starting container with config.local.json';
